@@ -12,7 +12,9 @@ class TransactionDetailController extends Controller
      */
     public function index()
     {
-        return view('transdetail');
+        $transdetails = TransactionDetail::all();
+        //return $court;
+        return view('transdetail', compact('transdetails'));
     }
 
     /**
