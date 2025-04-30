@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -22,7 +23,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        //Mengambil data dari tabel users 
+        $users = User::all();
+
+        return view('add.transaction', compact('users'));
     }
 
     /**
@@ -30,7 +34,24 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //validate form
+         $request->validate([
+            'user_id'          => 'required|exists:users,id', //
+            'date'             => 'required|date',
+            'total'            => 'required|numeric',
+            'paytotal'         => 'required|numeric'
+        ]);
+
+        //create item data
+        Transaction::create([  
+            'user_id'          => $request->user_id,
+            'date'             => $request->date,
+            'total'            => $request->total,
+            'paytotal'         => $request->paytotal 
+        ]); 
+
+        //redirect to index
+        return redirect()->route('transaction.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
     /**

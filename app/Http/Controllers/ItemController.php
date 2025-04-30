@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -22,7 +23,10 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        //Mengambil data dari tabel categories
+        $categories = Category::all();
+
+        return view('add.item', compact('categories'));
     }
 
     /**
@@ -30,7 +34,24 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate form
+        $request->validate([
+            'name'          => 'required|min:5|max:100',
+            'category_id'   => 'required|exists:categories,id', //
+            'price'         => 'required|numeric|min:4',
+            'stock'         => 'required|numeric|min:4'
+        ]);
+
+        //create item data
+        Item::create([  
+            'name'          => $request->name,
+            'category_id'   => $request->category_id,
+            'price'         => $request->price,
+            'stock'         => $request->stock     
+        ]);
+
+        //redirect to index
+        return redirect()->route('item.index')->with(['successAdd' => 'Data Berhasil Ditambahkan!']);
     }
 
     /**
@@ -62,6 +83,9 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        //redirect to index
+        return redirect()->route('item.index')->with(['successDel' => 'Data Berhasil Dihapus!']);
     }
 }

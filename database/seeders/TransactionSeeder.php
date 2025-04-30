@@ -16,6 +16,7 @@ class TransactionSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $faker = Faker::create('id_ID');
 
         for($i=1; $i <=10; $i++ ){
@@ -26,5 +27,6 @@ class TransactionSeeder extends Seeder
                 'paytotal' => $faker->numberBetween(10000, 1500000)
             ]);
         }
+        */
     }
 }

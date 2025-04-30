@@ -16,4 +16,16 @@ class Item extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
+
+    /**
+     * fillable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'category_id',
+        'price',
+        'stock'
+    ];
 }

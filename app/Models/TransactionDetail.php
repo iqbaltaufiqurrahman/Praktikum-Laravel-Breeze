@@ -12,8 +12,17 @@ class TransactionDetail extends Model
         return $this->belongsTo(Item::class, 'item_id');
     }
 
-    public function trans()
+    public function transaction()
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }
+
+    /**
+     * fillable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name'
+    ];
 }

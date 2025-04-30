@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Items')
+@section('title', 'Master Item')
 @section('content-title', 'Items')
 @section('content')
 <div class="parent md-12 bg-light" id="content-area">
@@ -7,9 +7,9 @@
         <!--Table-->
         <div class="col-md-8 mt-3 pb-5">
             <div class="card shadow">
-                <div class="card-header"><a class="btn btn-success mt-2 mb-2" href=""><i class="fas fa-plus"></i></a></div>
+                <div class="card-header"><a class="btn btn-success mt-2 mb-2" href="{{ route('item.create') }}"><i class="fas fa-plus"></i></a></div>
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th class="head">No.</th>
@@ -26,7 +26,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$barang->name}}</td>
                                     <td>{{$barang->category->name}}</td>
-                                    <td>Rp. {{$barang->price}}</td>
+                                    <td>{{"Rp. " . number_format($barang->price,0)}}</td>
                                     <td>{{$barang->stock}}</td>
                                     <td>
                                         <a class="btn btn-primary"><i class="fas fa-pen"></i></a>
@@ -35,6 +35,9 @@
                                 </tr>
                             </tbody>
                             @empty
+                                <div class="alert alert-danger">
+                                    Data Item belum ada.
+                                </div>
                             @endforelse
                         </table>
                     </div>

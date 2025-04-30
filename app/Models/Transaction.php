@@ -16,4 +16,16 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * fillable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'date',
+        'total',
+        'paytotal'
+    ];
 }

@@ -16,6 +16,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $faker = Faker::create('id_ID');
 
         for($i=1; $i <=10; $i++) {
@@ -23,5 +24,6 @@ class CategorySeeder extends Seeder
                 'name' =>'Kategori '.$faker->numberBetween(1,10),
             ]);
         }
+        */
     }
 }

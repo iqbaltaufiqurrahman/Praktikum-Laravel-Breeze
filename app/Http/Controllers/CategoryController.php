@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('add.category');
     }
 
     /**
@@ -30,7 +30,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate form
+        $request->validate([
+            'name'      => 'required|min:5|max:100'
+        ]);
+
+        //create category data
+        Category::create([
+            'name'      => $request->name
+        ]);
+
+        //redirect to index
+        return redirect()->route('category.index')->with(['successAdd' => 'Kategori Berhasil Ditambahkan!']);
     }
 
     /**
@@ -44,17 +55,32 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(string $id)
     {
-        //
+        $categories = Category::findOrFail($id);
+
+        return view('upt.category', compact('categories'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in st
+     * orage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        //validate form
+        $request->validate([
+            'name'      => 'required|min:5|max:100'
+        ]);
+
+        //GET data by id
+        $categories = Category::findOrFail($id);
+
+        $categories->update([
+            'name'      => $request->name
+        ]);
+
+        return redirect()->route('category.index')->with('successEdt', 'Kategori Berhasil Diubah!');
     }
 
     /**
@@ -62,6 +88,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        //redirect to index
+        return redirect()->route('category.index')->with(['successDel' => 'Kategori Berhasil Dihapus!']);
     }
 }

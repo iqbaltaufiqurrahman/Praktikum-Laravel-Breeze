@@ -16,6 +16,7 @@ class ItemSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         $faker = Faker::create('id_ID');
 
         for($i=1; $i <=10; $i++) {
@@ -26,5 +27,6 @@ class ItemSeeder extends Seeder
                 'stock' => $faker->numberBetween(5, 10)
             ]);
         }
+        */
     }
 }
